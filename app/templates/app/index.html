@@ -18,6 +18,31 @@
             body {
                background-color: #333;
             }
+            .navbar-nav .dropdown-menu {
+                -webkit-transition: max-height 0.4s, opacity 0.3s 0.1s, visibility 0s 0.3s, padding 0.4s ease;
+                -moz-transition: max-height 0.4s, opacity 0.3s 0.1s, visibility 0s 0.3s, padding 0.4s ease;
+                -ms-transition: max-height 0.4s, opacity 0.3s 0.1s, visibility 0s 0.3s, padding 0.4s ease;
+                -o-transition: max-height 0.4s, opacity 0.3s 0.1s, visibility 0s 0.3s, padding 0.4s ease;
+                transition: max-height 0.4s, opacity 0.3s 0.1s, visibility 0s 0.3s, padding 0.4s ease;
+                max-height: 0;
+                display: block;
+                overflow: hidden;
+                opacity: 0;
+                visibility: hidden;
+            }
+            .navbar-nav .dropdown.open .dropdown-menu {
+                -webkit-transition: max-height 0.4s, opacity 0.1s, visibility 0s, padding 0.2s ease;
+                -moz-transition: max-height 0.4s, opacity 0.1s, visibility 0s, padding 0.2s ease;
+                -ms-transition: max-height 0.4s, opacity 0.1s, visibility 0s, padding 0.2s ease;
+                -o-transition: max-height 0.4s, opacity 0.1s, visibility 0s, padding 0.2s ease;
+                transition: max-height 0.4s, opacity 0.1s, visibility 0s, padding 0.2s ease;
+                max-height: 120px;
+                opacity: 1;
+                visibility: visible;
+            }
+            .navbar-nav .dropdown:not(.open) .dropdown-menu {
+                padding: 0 !important;
+            }
         </style>
     </head>
     <body>
