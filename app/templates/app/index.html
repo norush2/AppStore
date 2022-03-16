@@ -18,65 +18,25 @@
             body {
                background-color: #333;
             }
-            .navbar-nav .dropdown-menu {
-                -webkit-transition: max-height 0.4s, opacity 0.3s 0.1s, visibility 0s 0.3s, padding 0.4s ease;
-                -moz-transition: max-height 0.4s, opacity 0.3s 0.1s, visibility 0s 0.3s, padding 0.4s ease;
-                -ms-transition: max-height 0.4s, opacity 0.3s 0.1s, visibility 0s 0.3s, padding 0.4s ease;
-                -o-transition: max-height 0.4s, opacity 0.3s 0.1s, visibility 0s 0.3s, padding 0.4s ease;
-                transition: max-height 0.4s, opacity 0.3s 0.1s, visibility 0s 0.3s, padding 0.4s ease;
-                max-height: 0;
-                display: block;
-                overflow: hidden;
-                opacity: 0;
-                visibility: hidden;
-            }
-            .navbar-nav .dropdown.open .dropdown-menu {
-                -webkit-transition: max-height 0.4s, opacity 0.1s, visibility 0s, padding 0.2s ease;
-                -moz-transition: max-height 0.4s, opacity 0.1s, visibility 0s, padding 0.2s ease;
-                -ms-transition: max-height 0.4s, opacity 0.1s, visibility 0s, padding 0.2s ease;
-                -o-transition: max-height 0.4s, opacity 0.1s, visibility 0s, padding 0.2s ease;
-                transition: max-height 0.4s, opacity 0.1s, visibility 0s, padding 0.2s ease;
-                max-height: 120px;
-                opacity: 1;
-                visibility: visible;
-            }
-            .navbar-nav .dropdown:not(.open) .dropdown-menu {
-                padding: 0 !important;
-            }
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">NUS Tutoring Service <i class="bi bi-people"></i></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="add">Add</a>
-                        </li>
-<!--                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li> -->
-<!--                         <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
-                        </li> -->
-                    </ul>
+                    <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" href="add">Add</a>
+                        <!-- <a class="nav-link" href="#">Login <i class="bi bi-box-arrow-in-right"></i></a> -->
+                    </div>
                     <form class="d-flex">
+                        <!-- <button class="btn btn-dark" type="submit">Login <i class="bi bi-box-arrow-in-right"></i></button> -->
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-dark" type="submit"><i class="bi bi-search"></i></button>
+                        <button class="btn btn-dark" type="submit"><i class="bi bi-search"></i></button>&nbsp;
+                        <button class="btn btn-primary" type="submit"><i class="bi bi-box-arrow-in-right"></i></button>
                     </form>
                 </div>
             </div>
