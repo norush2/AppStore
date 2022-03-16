@@ -28,19 +28,61 @@
                         <!-- Security token by Django -->
                         {% csrf_token %}
                         <!-- form -->
-                        <div id="div_id_first_name" class="control-group form-floating">
-                            <input type="text" name="first_name" value="{{obj.0}}" maxlength="64" class="textinput textInput form-control" id="id_first_name" placeholder="First name" required>
-                            <label for="id_first_name" class="control-label requiredField form-label">
-                                First name<span class="asteriskField">*</span> 
+                        <div id="div_id_name" class="control-group form-floating">
+                            <input type="text" name="name" value="{{obj.0}} {{obj.1}}" maxlength="64" class="textinput textInput form-control" id="id_name" placeholder="Name" required>
+                            <label for="id_name" class="control-label requiredField form-label">
+                                Name<span class="asteriskField">*</span> 
                             </label>     
                         </div>
-                        <div id="div_id_last_name" class="control-group form-floating">
-                            <input type="text" name="last_name" value="{{obj.1}}" maxlength="64" class="textinput textInput form-control" id="id_last_name" placeholder="Last name" required>
-                            <label for="id_last_name" class="control-label requiredField form-label">
-                                Last name<span class="asteriskField">*</span>
-                            </label>
+                        <div id="div_id_id" class="control-group form-floating">
+                            <input type="text" name="id" value="E0123456" maxlength="64" class="textinput textInput form-control" id="id_id" placeholder="ID" required>
+                            <label for="id_id" class="control-label requiredField form-label">
+                                ID<span class="asteriskField">*</span> 
+                            </label>     
                         </div>
-                        <div id="div_id_email" class="control-group form-floating">
+                        <div id="div_id_module_code" class="control-group form-floating">
+                            <input type="text" name="module_code" value="IT2002" maxlength="64" class="textinput textInput form-control" id="id_module_code" placeholder="Module code" required>
+                            <label for="id_module_code" class="control-label requiredField form-label">
+                                Module code<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_module_name" class="control-group form-floating">
+                            <input type="text" name="module_name" value="Database Technology and Management" maxlength="64" class="textinput textInput form-control" id="id_module_name" placeholder="Module name" required>
+                            <label for="id_module_name" class="control-label requiredField form-label">
+                                Module name<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_grade" class="control-group form-floating">
+                            <input type="text" name="grade" value="A-" maxlength="64" class="textinput textInput form-control" id="id_grade" placeholder="Grade" required>
+                            <label for="id_grade" class="control-label requiredField form-label">
+                                Grade<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_sem" class="control-group form-floating">
+                            <input type="text" name="sem" value="21S2" maxlength="64" class="textinput textInput form-control" id="id_sem" placeholder="Semester" required>
+                            <label for="id_sem" class="control-label requiredField form-label">
+                                Semester<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_fee" class="control-group form-floating">
+                            <input type="text" name="fee" value="50" maxlength="64" class="textinput textInput form-control" id="id_fee" placeholder="Fee" required>
+                            <label for="id_fee" class="control-label requiredField form-label">
+                                Fee<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_unit_time" class="control-group form-floating">
+                            <input type="text" name="unit_time" value="hr" maxlength="64" class="textinput textInput form-control" id="id_unit_time" placeholder="Unit time" required>
+                            <label for="id_unit_time" class="control-label requiredField form-label">
+                                Unit time<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <!-- <div id="div_id_last_name" class="control-group form-floating"> -->
+                            <!-- <input type="text" name="last_name" value="{{obj.1}}" maxlength="64" class="textinput textInput form-control" id="id_last_name" placeholder="Last name" required> -->
+                            <!-- <label for="id_last_name" class="control-label requiredField form-label"> -->
+                                <!-- Last name<span class="asteriskField">*</span> -->
+                            <!-- </label> -->
+                        <!-- </div> -->
+                        <!-- <div id="div_id_email" class="control-group form-floating">
                             <input type="email" name="email" value="{{obj.2}}" maxlength="64" class="textinput textInput form-control" id="id_email" placeholder="Email" required>
                             <label for="id_email" class="control-label requiredField form-label">
                                 Email<span class="asteriskField">*</span>
@@ -63,7 +105,7 @@
                             <label for="id_customerid" class="control-label requiredField form-label">
                                 Country<span class="asteriskField">*</span>
                             </label>
-                        </div>
+                        </div> -->
                         <br>
                         <button type="submit" class="btn btn-primary text-center" value="Update">Update</button>
                     </form>                    

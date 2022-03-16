@@ -27,46 +27,53 @@
                         <!-- Security token by Django -->
                         {% csrf_token %}
                         <!-- form -->
-                        <div id="div_id_first_name" class="control-group form-floating">
-                            <input type="text" name="first_name" maxlength="64" class="textinput textInput form-control" id="id_first_name" placeholder="First name" required>
-                            <label for="id_first_name" class="control-label requiredField">
-                                First name<span class="asteriskField">*</span>
-                            </label>            
+                        <div id="div_id_name" class="control-group form-floating">
+                            <input type="text" name="name" maxlength="64" class="textinput textInput form-control" id="id_name" placeholder="Name" required>
+                            <label for="id_name" class="control-label requiredField form-label">
+                                Name<span class="asteriskField">*</span> 
+                            </label>     
                         </div>
-                        <div id="div_id_last_name" class="control-group form-floating">
-                            <input type="text" name="last_name" maxlength="64" class="textinput textInput form-control" id="id_last_name"  placeholder="Last name" placeholder="Last name" required>
-                            <label for="id_last_name" class="control-label requiredField">
-                                Last name<span class="asteriskField">*</span>
-                            </label>
+                        <div id="div_id_id" class="control-group form-floating">
+                            <input type="text" name="id" maxlength="64" class="textinput textInput form-control" id="id_id" placeholder="ID" required>
+                            <label for="id_id" class="control-label requiredField form-label">
+                                ID<span class="asteriskField">*</span> 
+                            </label>     
                         </div>
-                        <div id="div_id_email" class="control-group form-floating">
-                            <input type="email" name="email" maxlength="64" class="textinput textInput form-control" id="id_email" placeholder="Email" required>
-                            <label for="id_email" class="control-label requiredField">
-                                Email<span class="asteriskField">*</span></label>
+                        <div id="div_id_module_code" class="control-group form-floating">
+                            <input type="text" name="module_code" maxlength="64" class="textinput textInput form-control" id="id_module_code" placeholder="Module code" required>
+                            <label for="id_module_code" class="control-label requiredField form-label">
+                                Module code<span class="asteriskField">*</span> 
+                            </label>     
                         </div>
-                        <div id="div_id_dob" class="control-group form-floating">
-                            <input type="date" name="dob" class="dateinput form-control" id="id_dob" placeholder="Date of birth (yyyy-mm-dd)" required>
-                            <label for="id_dob" class="control-label requiredField">
-                                Date of birth (yyyy-mm-dd)<span class="asteriskField">*</span>
-                            </label>
+                        <div id="div_id_module_name" class="control-group form-floating">
+                            <input type="text" name="module_name" maxlength="64" class="textinput textInput form-control" id="id_module_name" placeholder="Module name" required>
+                            <label for="id_module_name" class="control-label requiredField form-label">
+                                Module name<span class="asteriskField">*</span> 
+                            </label>     
                         </div>
-                        <div id="div_id_since" class="control-group form-floating">
-                            <input type="date" name="since" class="dateinput form-control" id="id_since" placeholder="Since (yyyy-mm-dd)" required>
-                            <label for="id_since" class="control-label requiredField">
-                                Since (yyyy-mm-dd)<span class="asteriskField">*</span>
-                            </label>  
+                        <div id="div_id_grade" class="control-group form-floating">
+                            <input type="text" name="grade" maxlength="64" class="textinput textInput form-control" id="id_grade" placeholder="Grade" required>
+                            <label for="id_grade" class="control-label requiredField form-label">
+                                Grade<span class="asteriskField">*</span> 
+                            </label>     
                         </div>
-                        <div id="div_id_customerid" class="control-group form-floating">
-                            <input type="text" name="customerid" maxlength="16" class="textinput textInput form-control" id="id_customerid" placeholder="Customer ID" required>
-                            <label for="id_customerid" class="control-label requiredField">
-                                Customer ID<span class="asteriskField">*</span>
-                            </label>   
-                         </div>
-                        <div id="div_id_country" class="control-group form-floating">
-                            <input type="text" name="country" maxlength="16" class="textinput textInput form-control" id="id_country" placeholder="Country" required>
-                            <label for="id_country" class="control-label requiredField">
-                                Country<span class="asteriskField">*</span>
-                            </label>
+                        <div id="div_id_sem" class="control-group form-floating">
+                            <input type="text" name="sem" maxlength="64" class="textinput textInput form-control" id="id_sem" placeholder="Semester" required>
+                            <label for="id_sem" class="control-label requiredField form-label">
+                                Semester<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_fee" class="control-group form-floating">
+                            <input type="text" name="fee" maxlength="64" class="textinput textInput form-control" id="id_fee" placeholder="Fee" required>
+                            <label for="id_fee" class="control-label requiredField form-label">
+                                Fee<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_unit_time" class="control-group form-floating">
+                            <input type="text" name="unit_time" maxlength="64" class="textinput textInput form-control" id="id_unit_time" placeholder="Unit time" required>
+                            <label for="id_unit_time" class="control-label requiredField form-label">
+                                Unit time<span class="asteriskField">*</span> 
+                            </label>     
                         </div>
                         <br>
                         <button type="submit" value="Add" class="btn btn-primary text-center">Add</button>
