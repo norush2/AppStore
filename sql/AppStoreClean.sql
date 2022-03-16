@@ -4,6 +4,8 @@
 
 *******************/
 
-DROP TABLE IF EXISTS downloads;
-DROP TABLE IF EXISTS games;
-DROP TABLE IF EXISTS customers;
+DROP TABLE IF EXISTS modules;
+DROP TABLE IF EXISTS offers;
+DROP TABLE IF EXISTS tutees;
+DROP TABLE IF EXISTS tutors;
+DROP TABLE IF EXISTS users;
