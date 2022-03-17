@@ -4,7 +4,7 @@ Repository for Group 20's NUS Student Tutoring application with Django and Herok
 
 See the live app here: https://it2002-app.herokuapp.com/.
 
-Done by:
-    AHMAD AS-SHODIQQUL AMIN B M T  
-    NOORUS SUHAINA  
-    MUHAMMED ANAS S/O TARIQ
+Done by:  
+&nbsp;&nbsp;&nbsp;&nbsp;AHMAD AS-SHODIQQUL AMIN B M T  
+&nbsp;&nbsp;NOORUS SUHAINA  
+&nbsp;&nbsp;MUHAMMED ANAS S/O TARIQ
