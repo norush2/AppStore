@@ -1,20 +1,20 @@
 CREATE TABLE IF NOT EXISTS modules (
  module_code VARCHAR(15) PRIMARY KEY,
  module_name VARCHAR(100) NOT NULL,
- modular_credits INT CHECK (modular_credits BETWEEN 1 AND 8) NOT NULL
+ modular_credits INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS users (
  student_id CHAR(8) PRIMARY KEY,
  name VARCHAR(50) NOT NULL,
- password VARCHAR(20) NOT NULL,
- is_admin BOOLEAN NOT NULL
+ is_admin BOOLEAN NOT NULL,
+ password VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS tutors (
- student_id CHAR(8) CHECK (student_id LIKE 'e%'),
+ student_id CHAR(8) CHECK (student_id LIKE 'E%'),
  name VARCHAR(50) NOT NULL,
- module_code VARCHAR(8) NOT NULL,
+ module_code VARCHAR(15) NOT NULL,
  grade VARCHAR(2) NOT NULL,
  fee INT,
  unit_time VARCHAR(11),
@@ -24,14 +24,14 @@ CREATE TABLE IF NOT EXISTS tutors (
  FOREIGN KEY(student_id) REFERENCES users(student_id) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED); 
  
 CREATE TABLE IF NOT EXISTS tutees (
- student_id CHAR(8) PRIMARY KEY CHECK (student_id LIKE 'e%'),
+ student_id CHAR(8) PRIMARY KEY CHECK (student_id LIKE 'E%'),
  name VARCHAR(50) NOT NULL,
  major VARCHAR(20),
  FOREIGN KEY(student_id) REFERENCES users(student_id) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED
 );
 
 CREATE TABLE IF NOT EXISTS offers (
- module_code VARCHAR(8) NOT NULL,
+ module_code VARCHAR(15) NOT NULL,
  tutor_id CHAR(8) NOT NULL,
  tutee_id CHAR(8) NOT NULL,
  status VARCHAR(8) NOT NULL,
@@ -41,5 +41,3 @@ CREATE TABLE IF NOT EXISTS offers (
  FOREIGN KEY (tutee_id) REFERENCES users(student_id) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
  FOREIGN KEY (module_code) REFERENCES modules(module_code) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED
 );
-
-
