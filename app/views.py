@@ -18,17 +18,18 @@ def index(request):
     result_dict = {'records': tutors}
     return render(request,'app/index.html', result_dict)
 
-# Create your views here.
-def view(request, id):
-    """Shows the main page"""
+def view(request, student_id):
+    """Shows the view of a tutor"""
     
-    ## Use raw query to get a customer
+    ## Use raw query to get a tutor
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
-        customer = cursor.fetchone()
-    result_dict = {'cust': customer}
+        cursor.execute("SELECT * FROM tutor WHERE student_id = %s", [student_id])
+        tutor = cursor.fetchone()
+        cursor.execute("SELECT module_name FROM modules WHERE module_code = %s", [tutor[2]])
+        title = cursor.fetchone()
+    result_dict = {'record': tutor, 'module': title} # not sure whats this gonna be like
 
-    return render(request,'app/view.html',result_dict)
+    return render(request,'app/view.html', result_dict)
 
 # Create your views here.
 def add_tutor(request):

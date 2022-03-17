@@ -42,7 +42,7 @@
                 </div>
             </div>
         </nav>
-<!--         <h2 class="text-white">Details for {{cust.0}} {{cust.1}}</h2>
+<!--         <h2 class="text-white">Details for {{record.0}} {{record.1}}</h2>
         <a href="/">Back to home</a> -->
         <br><br>
         <div class="container">
@@ -50,35 +50,30 @@
                 <div class="col-4"></div>
                 <div class="col-4">
                     <table style='text-align:left' class="table table-secondary table-hover table-striped table-bordered table-sm">
-                        <!-- <tr> -->
-                            <!-- <th>ID</th> -->
-                            <!-- <td>:</td> -->
-                            <!-- <td> {{ cust.5 }} </td> -->
-                        <!-- </tr> -->
                         <tr>
                             <th>Name</th>
                             <!-- <td>:</td> -->
-                            <td>{{ cust.0 }} {{ cust.1 }}</td>
+                            <td>{{ record.1 }}</td>
                         </tr>
                         <tr>
                             <th>Module</th>
                             <!-- <td>:</td> -->
-                            <td>IT2002 Database Technology and Management</td>
+                            <td>{{ record.2 }} {{ title.0 }}</td>
                         </tr>
                         <tr>
                             <th>Grade</th>
                             <!-- <td>:</td> -->
-                            <td>A-</td>
+                            <td>{{ record.3 }}</td>
                         </tr>
                         <tr>
-                            <th>Sem</th>
+                            <th>Year</th>
                             <!-- <td>:</td> -->
-                            <td>AY21 S2</td>
+                            <td>{{ record.6 }}</td>
                         </tr>
                         <tr>
                             <th>Fee</th>
                             <!-- <td>:</td> -->
-                            <td>$50/hr</td>
+                            <td>{{ record.4 }}/{{ record.5 }}</td>
                         </tr>
                     </table>
                 </div>
