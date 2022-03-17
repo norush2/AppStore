@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="An online service for NUS students to find other student tutors for module coaching">
+        <meta name="author" content="Muhammed Anas">
+        <title>NUS Tutoring Service - Add Tutor</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <style type="text/css">
+            input {
+                margin-bottom: 3px;
+            }
+            body {
+               background-color: #333;
+            }
+            select {
+                margin-bottom: 3px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">NUS Tutoring Service <i class="bi bi-people"></i></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-nav me-auto">
+                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link active" aria-current="page" href="add">Add Tutor</a>
+                    </div>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-dark" type="submit"><i class="bi bi-search"></i></button>&nbsp;
+                        <button class="btn btn-primary" type="submit"><i class="bi bi-box-arrow-in-right"></i></button>
+                    </form>
+                </div>
+            </div>
+        </nav>  
+        <!-- <h2 class="text-white">Add New Customer</h2> -->
+        <!-- <a href="/">Back to home</a> -->
+        <p class="text-danger">{{ status|safe }}</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <!-- Create a Form -->
+                    <form method="POST">
+                        <!-- Security token by Django -->
+                        {% csrf_token %}
+                        <!-- form -->
+                        <div id="div_id_id" class="control-group form-floating">
+                            <input type="text" name="id" maxlength="64" class="textinput textInput form-control" id="id_id" placeholder="ID" required>
+                            <label for="id_id" class="control-label requiredField form-label">
+                                NUSNET ID<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>                        
+                        <div id="div_id_name" class="control-group form-floating">
+                            <input type="text" name="name" maxlength="64" class="textinput textInput form-control" id="id_name" placeholder="Name" required>
+                            <label for="id_name" class="control-label requiredField form-label">
+                                Name<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_module_code" class="control-group form-floating">
+                            <select class="form-select" aria-label="Module code" id="id_module_code"></select>
+                            <label for="id_module_code" class="control-label requiredField form-label">
+                                Module code<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_grade" class="control-group form-floating">
+                            <select class="form-select" aria-label="Grade" id="id_grade">
+                                <option value="A+">A+</option>
+                                <option value="A">A</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B">B</option>
+                                <option value="B-">B-</option>
+                            </select>
+                            <label for="id_grade" class="control-label requiredField form-label">
+                                Grade<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_sem" class="control-group form-floating">
+                            <select class="form-select" aria-label="Grade" id="id_sem">
+                                <option value="21S2">AY21/22 Sem 2</option>
+                                <option value="21S1">AY21/22 Sem 1</option>
+                                <option value="20S2">AY20/21 Sem 2</option>
+                                <option value="20S1">AY20/21 Sem 1</option>
+                                <option value="19S2">AY19/20 Sem 2</option>
+                                <option value="19S1">AY19/20 Sem 1</option>
+                            </select>
+                            <label for="id_sem" class="control-label requiredField form-label">
+                                Semester<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_fee" class="control-group form-floating">
+                            <input type="text" name="fee" maxlength="64" class="textinput textInput form-control" id="id_fee" placeholder="Fee" required>
+                            <label for="id_fee" class="control-label requiredField form-label">
+                                Fee ($)<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <div id="div_id_unit_time" class="control-group form-floating">
+                            <select class="form-select" aria-label="Grade" id="id_unit_time">
+                                <option value="hr">hour</option>
+                                <option value="session">session</option>
+                            </select>
+                            <label for="id_unit_time" class="control-label requiredField form-label">
+                                Unit time<span class="asteriskField">*</span> 
+                            </label>     
+                        </div>
+                        <br>
+                        <button type="submit" value="Add" class="btn btn-primary text-center">Add</button>
+                    </form>
+                </div>
+                <div class="col-4"></div>    
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+              vals = $.getJSON('https://pastebin.com/raw/9Pgs4GGD', function(data) {
+                data.forEach(function(e) {
+                  $("#id_module_code").append('<option value="' + e.moduleCode + '">' + e.moduleCode + '</option>')
+                });
+              });
+            });
+        </script>
+    </body>
+</html>
