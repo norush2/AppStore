@@ -25,7 +25,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=jtuv_tw20df-4=%g+k_#vbbk3o%max96^h@paxwafs8ey7@hg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+# DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 
 RUN_LOCAL_DB = config('RUN_LOCAL_DB', default=False, cast=bool)
 
@@ -86,8 +87,8 @@ if RUN_LOCAL_DB:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': config('LOCAL_DB_NAME', default='test'),
-            'USER': config('LOCAL_DB_USER', default=''),
+            'NAME': 'tutors',
+            'USER': 'postgres',
             'HOST': 'localhost',
             'PORT': 5432
         }
@@ -150,3 +151,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 django_heroku.settings(locals())
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
+}

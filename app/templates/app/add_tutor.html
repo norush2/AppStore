@@ -60,7 +60,7 @@
                         {% csrf_token %}
                         <!-- form -->
                         <div id="div_id_id" class="control-group form-floating">
-                            <input type="text" name="id" maxlength="64" class="textinput textInput form-control" id="id_id" placeholder="ID" required>
+                            <input type="text" name="student_id" maxlength="64" class="textinput textInput form-control" id="id_id" placeholder="ID" required>
                             <label for="id_id" class="control-label requiredField form-label">
                                 NUSNET ID<span class="asteriskField">*</span> 
                             </label>     
@@ -72,13 +72,13 @@
                             </label>     
                         </div>
                         <div id="div_id_module_code" class="control-group form-floating">
-                            <select class="form-select" aria-label="Module code" id="id_module_code"></select>
+                            <select class="form-select" aria-label="Module code" id="id_module_code" name='module_code'></select>
                             <label for="id_module_code" class="control-label requiredField form-label">
                                 Module code<span class="asteriskField">*</span> 
                             </label>     
                         </div>
                         <div id="div_id_grade" class="control-group form-floating">
-                            <select class="form-select" aria-label="Grade" id="id_grade">
+                            <select class="form-select" aria-label="Grade" id="id_grade" name='grade'>
                                 <option value="A+">A+</option>
                                 <option value="A">A</option>
                                 <option value="A-">A-</option>
@@ -91,13 +91,11 @@
                             </label>     
                         </div>
                         <div id="div_id_sem" class="control-group form-floating">
-                            <select class="form-select" aria-label="Grade" id="id_sem">
-                                <option value="21S2">AY21/22 Sem 2</option>
-                                <option value="21S1">AY21/22 Sem 1</option>
-                                <option value="20S2">AY20/21 Sem 2</option>
-                                <option value="20S1">AY20/21 Sem 1</option>
-                                <option value="19S2">AY19/20 Sem 2</option>
-                                <option value="19S1">AY19/20 Sem 1</option>
+                            <select class="form-select" aria-label="Grade" id="id_sem" name='year'>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
                             </select>
                             <label for="id_sem" class="control-label requiredField form-label">
                                 Semester<span class="asteriskField">*</span> 
@@ -110,9 +108,9 @@
                             </label>     
                         </div>
                         <div id="div_id_unit_time" class="control-group form-floating">
-                            <select class="form-select" aria-label="Grade" id="id_unit_time">
-                                <option value="hr">hour</option>
-                                <option value="session">session</option>
+                            <select class="form-select" aria-label="Grade" id="id_unit_time", name='unit_time'>
+                                <option value="per hour">hour</option>
+                                <option value="per session">session</option>
                             </select>
                             <label for="id_unit_time" class="control-label requiredField form-label">
                                 Unit time<span class="asteriskField">*</span> 

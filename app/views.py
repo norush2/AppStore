@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db import connection
+import logging
+
+logger = logging.getLogger("logger")
 
 def index(request):
     """Shows the main page"""
@@ -7,8 +10,9 @@ def index(request):
     ## Delete tutor not user
     if request.POST:
         if request.POST['action'] == 'delete':
+            student_id, module_code = request.POST['student_id_mod_code'].split('_')
             with connection.cursor() as cursor:
-                cursor.execute("DELETE FROM tutors WHERE student_id = %s", [request.POST['student_id']])
+                cursor.execute("DELETE FROM tutors WHERE student_id = %s AND module_code =  %s", [student_id, module_code])
 
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
@@ -18,44 +22,45 @@ def index(request):
     result_dict = {'records': tutors}
     return render(request,'app/index.html', result_dict)
 
-def view(request, student_id):
+def view(request, student_id_mod_code):
     """Shows the view of a tutor"""
-    
+    logger.info("Hello")
+    student_id, module_code = student_id_mod_code.split('_')
     ## Use raw query to get a tutor
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM tutor WHERE student_id = %s", [student_id])
+        cursor.execute("SELECT * FROM tutors WHERE student_id = %s AND module_code = %s", [student_id, module_code])
         tutor = cursor.fetchone()
-        # cursor.execute("SELECT module_name FROM modules WHERE module_code = %s", [tutor[2]])
-        # title = cursor.fetchone()
-    result_dict = {'record': tutor} # not sure whats this gonna be like
-
-    return render(request,'app/view.html')
+        cursor.execute("SELECT module_name FROM modules WHERE module_code = %s", [module_code])
+        module = cursor.fetchone()
+        
+    result_dict = {'record': tutor, 'module': module} # not sure whats this gonna be like
+    return render(request, 'app/view.html', result_dict)
 
 # Create your views here.
 def add_tutor(request):
     """Shows the main page"""
     context = {}
     status = ''
-
     if request.POST:
-        ## Check if customerid is already in the table
+        ## Check if user already a tutor
         with connection.cursor() as cursor:
-
-            cursor.execute("SELECT * FROM customers WHERE customerid = %s", [request.POST['customerid']])
-            customer = cursor.fetchone()
-            ## No customer with same id
-            if customer == None:
-                ##TODO: date validation
-                cursor.execute("INSERT INTO customers VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                        , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
-                           request.POST['dob'] , request.POST['since'], request.POST['customerid'], request.POST['country'] ])
+            query = "SELECT * FROM tutors WHERE student_id = %s AND module_code = %s"
+            cursor.execute(query, [request.POST['student_id'], request.POST['module_code']])
+            tutor = cursor.fetchone()
+            
+            # User is not a tutor
+            if not tutor:
+                make_tutor_op = "INSERT INTO tutors VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                tutor_values = [request.POST['student_id'], request.POST['name'], request.POST['module_code']
+                        , request.POST['grade'], request.POST['fee'], request.POST['unit_time'], request.POST['year']]
+                cursor.execute(make_tutor_op, tutor_values)
+                status = 'User is now a tutor!'
                 return redirect('index')    
             else:
-                status = 'Customer with ID %s already exists' % (request.POST['customerid'])
-
-
+                status = 'User is already a tutor. Add new listing instead!'
+                """add_listing"""
+                #status = 'Customer with ID %s already exists' % (request.POST['customerid'])
     context['status'] = status
- 
     return render(request, "app/add_tutor.html", context)
 
 # Create your views here.
