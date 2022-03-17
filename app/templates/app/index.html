@@ -72,12 +72,12 @@
                         <td class="text-center">{{ tutor.2 }}</td>
                         <!-- <td class="text-center"> {{ tutor.1 }} </td> -->
                         <td class="text-center">
-                            <a href="view/{{tutor.5}}"><button class="btn btn-primary">View <i class="bi bi-info-circle-fill"></i></button></a> |
+                            <a href="view/{{tutor.0}}"><button class="btn btn-primary">View <i class="bi bi-info-circle-fill"></i></button></a> |
                             <a href="#"><button class="btn btn-success">Contact <i class="bi bi-chat-fill"></i></button></a> | 
-                            <a href="edit/{{tutor.5}}"><button class="btn btn-warning">Edit <i class="bi bi-pencil-square"></i></button></a> | 
+                            <a href="edit/{{tutor.0}}"><button class="btn btn-warning">Edit <i class="bi bi-pencil-square"></i></button></a> | 
                             <form method="POST" style="display: inline;">
                             {% csrf_token %}
-                            <input type="hidden" name="student_id" value="{{tutor.5}}"/>
+                            <input type="hidden" name="student_id" value="{{tutor.0}}"/>
                             <button  class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {{ tutor.1 }}?');" type="submit" name="action" value="delete">Delete <i class="bi bi-trash-fill"></i></button> 
                           </form></td>
                     </tr>
