@@ -78,7 +78,7 @@
                             <form method="POST" style="display: inline;">
                             {% csrf_token %}
                             <input type="hidden" name="student_id" value="{{tutor.5}}"/>
-                            <button  class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {{tutor.5}}?');" type="submit" name="action" value="delete">Delete <i class="bi bi-trash-fill"></i></button> 
+                            <button  class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {{ tutor.1 }}?');" type="submit" name="action" value="delete">Delete <i class="bi bi-trash-fill"></i></button> 
                           </form></td>
                     </tr>
                     {% endfor %}
