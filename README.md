@@ -1,8 +1,10 @@
-# AppStore
+# NUS Student Tutoring
 
-Repository for the AppStore application with Django and Heroku with Raw SQL.
+Repository for Group 20's NUS Student Tutoring application with Django and Heroku with Raw SQL.
 
-See the example here: https://it2002-app.herokuapp.com/.
+See the live app here: https://it2002-app.herokuapp.com/.
 
-## Contact
-If you have any issues, contact Remmy Zen (remmy@u.nus.edu) or post a question in Luminus forum.
+Done by:
+    AHMAD AS-SHODIQQUL AMIN B M T
+    NOORUS SUHAINA
+    MUHAMMED ANAS S/O TARIQ
