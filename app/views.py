@@ -1,24 +1,22 @@
 from django.shortcuts import render, redirect
 from django.db import connection
 
-# Create your views here.
 def index(request):
     """Shows the main page"""
 
-    ## Delete customer
+    ## Delete tutor not user
     if request.POST:
         if request.POST['action'] == 'delete':
             with connection.cursor() as cursor:
-                cursor.execute("DELETE FROM customers WHERE customerid = %s", [request.POST['id']])
+                cursor.execute("DELETE FROM tutors WHERE student_id = %s", [request.POST['student_id']])
 
     ## Use raw query to get all objects
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers ORDER BY customerid")
-        customers = cursor.fetchall()
+        cursor.execute("SELECT * FROM tutors ORDER BY name")
+        tutors = cursor.fetchall()
 
-    result_dict = {'records': customers}
-
-    return render(request,'app/index.html',result_dict)
+    result_dict = {'records': tutors}
+    return render(request,'app/index.html', result_dict)
 
 # Create your views here.
 def view(request, id):
