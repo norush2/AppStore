@@ -139,3 +139,21 @@ def login(request):
                 return render(request, "app/login.html", context)
 
     return render(request,'app/login.html')
+
+def index_pre_login(request):
+    """Shows the main page"""
+
+    ## Delete tutor not user
+    if request.POST:
+        if request.POST['action'] == 'delete':
+            student_id, module_code = request.POST['student_id_mod_code'].split('_')
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM tutors WHERE student_id = %s AND module_code =  %s", [student_id, module_code])
+
+    ## Use raw query to get all objects
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM tutors ORDER BY name")
+        tutors = cursor.fetchall()
+
+    result_dict = {'records': tutors}
+    return render(request,'app/index_pre_login.html', result_dict)

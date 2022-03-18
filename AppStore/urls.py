@@ -20,7 +20,9 @@ import app.views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('', app.views.index, name='index'),
+    # path('', app.views.index, name='index'),
+    path('', app.views.index_pre_login, name='index_pre_login'),
+    path('index', app.views.index, name='index'),
     path('add_tutor', app.views.add_tutor, name='add_tutor'),
     path('add_user', app.views.add_user, name='add_user'),
     path('view/<str:student_id_mod_code>', app.views.view, name='view'),
