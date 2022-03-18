@@ -72,7 +72,6 @@ def add_user(request):
     if request.POST:
         ## Check if customerid is already in the table
         with connection.cursor() as cursor:
-
             cursor.execute("SELECT * FROM customers WHERE customerid = %s", [request.POST['customerid']])
             customer = cursor.fetchone()
             ## No customer with same id
@@ -121,3 +120,22 @@ def edit(request, id):
     context["status"] = status
  
     return render(request, "app/edit.html", context)
+
+def login(request):
+    """Shows the main page"""
+
+    # Delete tutor not user
+    if request.POST:
+        student_id, password = request.POST['student_id'], request.POST['password']
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM users WHERE student_id = %s AND password =  %s", [student_id, password])
+            user = cursor.fetchone()
+            if user:
+                status = "Logged in"
+                return redirect('index')
+            else:
+                status = "Login failed"
+                context = {"status": status}
+                return render(request, "app/login.html", context)
+
+    return render(request,'app/login.html')

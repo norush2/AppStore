@@ -1,0 +1,12 @@
+input {
+    margin-bottom: 3px;
+}
+body {
+   background-color: #333;
+}
+select {
+    margin-bottom: 3px;
+}
+label.w {
+    color: white;
+}
