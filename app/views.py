@@ -7,18 +7,22 @@ logger = logging.getLogger("logger")
 def index(request):
     """Shows the main page"""
 
-    ## Delete tutor not user
+    ## Delete tutor
     if request.POST:
         if request.POST['action'] == 'delete':
             student_id, module_code = request.POST['student_id_mod_code'].split('_')
             with connection.cursor() as cursor:
                 cursor.execute("DELETE FROM tutors WHERE student_id = %s AND module_code =  %s", [student_id, module_code])
+    elif request.GET:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM tutors WHERE module_code = %s", [request.GET['module_code']])
+            tutors = cursor.fetchall()
+        result_dict = {'records': tutors}
+        return render(request,'app/index.html', result_dict)
 
-    ## Use raw query to get all objects
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM tutors ORDER BY name")
         tutors = cursor.fetchall()
-
     result_dict = {'records': tutors}
     return render(request,'app/index.html', result_dict)
 
@@ -38,64 +42,57 @@ def view(request, student_id_mod_code):
 
 # Create your views here.
 def add_tutor(request):
-    """Shows the main page"""
-    context = {}
-    status = ''
+    """Shows the add_tutor page"""
+    context = {"status": 0}
     if request.POST:
         ## Check if user already a tutor
         with connection.cursor() as cursor:
             query = "SELECT * FROM tutors WHERE student_id = %s AND module_code = %s"
             cursor.execute(query, [request.POST['student_id'], request.POST['module_code']])
             tutor = cursor.fetchone()
-            
-            # User is not a tutor
             if not tutor:
                 make_tutor_op = "INSERT INTO tutors VALUES (%s, %s, %s, %s, %s, %s, %s)"
                 tutor_values = [request.POST['student_id'], request.POST['name'], request.POST['module_code']
                         , request.POST['grade'], request.POST['fee'], request.POST['unit_time'], request.POST['year']]
                 cursor.execute(make_tutor_op, tutor_values)
-                status = 'User is now a tutor!'
-                return redirect('index')    
+                context["status"] = 1
+                # return redirect('index')    
             else:
-                status = 'User is already a tutor. Add new listing instead!'
-                """add_listing"""
-                #status = 'Customer with ID %s already exists' % (request.POST['customerid'])
-    context['status'] = status
+                context["status"] = 2
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT module_code, module_name FROM modules")
+        modules = cursor.fetchall()
+        context["modules"] = modules
     return render(request, "app/add_tutor.html", context)
 
 # Create your views here.
 def add_user(request):
-    """Shows the main page"""
-    context = {}
-    status = ''
-
+    """Shows the add_user page"""
+    context = {"status": 0}
     if request.POST:
-        ## Check if customerid is already in the table
+        ## Check if student_id is already in the table
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM customers WHERE customerid = %s", [request.POST['customerid']])
-            customer = cursor.fetchone()
-            ## No customer with same id
-            if customer == None:
-                ##TODO: date validation
-                cursor.execute("INSERT INTO customers VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                        , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
-                           request.POST['dob'] , request.POST['since'], request.POST['customerid'], request.POST['country'] ])
-                return redirect('index')    
+            cursor.execute("SELECT * FROM users WHERE student_id = %s", [request.POST['student_id']])
+            user = cursor.fetchone()
+            if not user:
+                cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s)",
+                    [request.POST['student_id'], request.POST['name'],
+                    True if request.POST['is_admin'] == 'True' else False,
+                    request.POST['password']])
+                context["status"] = 1
+                # return redirect('index')    
             else:
-                status = 'Customer with ID %s already exists' % (request.POST['customerid'])
-
-
-    context['status'] = status
- 
+                context["status"] = 2
+                status = 'User with ID %s already exists' % (request.POST['student_id']) 
     return render(request, "app/add_user.html", context)
 
 # Create your views here.
 def edit(request, id):
-    """Shows the main page"""
+    """Shows the edit page"""
 
     # dictionary for initial data with
     # field names as keys
-    context ={}
+    context = {}
 
     # fetch the object related to passed id
     with connection.cursor() as cursor:
