@@ -122,23 +122,23 @@ def edit(request, id):
     return render(request, "app/edit.html", context)
 
 def login(request):
-    """Shows the main page"""
-
+    """Shows the login page"""
+    context = {"status": 0}
     # Delete tutor not user
     if request.POST:
         student_id, password = request.POST['student_id'], request.POST['password']
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM users WHERE student_id = %s AND password =  %s", [student_id, password])
+            cursor.execute("SELECT * FROM users WHERE student_id = %s", [student_id])
             user = cursor.fetchone()
             if user:
-                status = "Logged in"
-                return redirect('index')
+                if user[3] == password:
+                    context["status"] = 1   #logged in
+                    return redirect('index')
+                else:
+                    context["status"] = 2   #wrong password                
             else:
-                status = "Login failed"
-                context = {"status": status}
-                return render(request, "app/login.html", context)
-
-    return render(request,'app/login.html')
+                context["status"] = 3       #user not found
+    return render(request,'app/login.html', context)
 
 def index_pre_login(request):
     """Shows the main page"""
