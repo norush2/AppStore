@@ -1,4 +1,5 @@
-INSERT INTO users VALUES ('E3068780', 'Taryn Galbreath', true, 'C1cpQxFjfz7');
+INSERT INTO users VALUES ('E3068780', 'Taryn Galbreath', false, 'C1cpQxFjfz7');
+INSERT INTO users VALUES ('E3068781', 'Taryn Galbreath (admin)', true, 'C1cpQxFjfz7');
 INSERT INTO users VALUES ('E6304277', 'Susie Bompass', true, 'w1ygeARxMwB');
 INSERT INTO users VALUES ('E4713577', 'Babs Pencost', true, 'AuDfYAC');
 INSERT INTO users VALUES ('E6034599', 'Elisabetta Yaxley', true, 'sVENApLW');

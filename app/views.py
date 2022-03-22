@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.db import connection
+from django.http import HttpResponse
 import logging
 
 logger = logging.getLogger("logger")
 
 def index(request):
     """Shows the main page"""
-
+    request.session['login'] = request.session.get('login', False)
+    request.session['admin'] = request.session.get('admin', False)
     ## Delete tutor
     if request.POST:
         if request.POST['action'] == 'delete':
@@ -19,17 +21,17 @@ def index(request):
             tutors = cursor.fetchall()
         result_dict = {'records': tutors}
         return render(request,'app/index.html', result_dict)
-
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM tutors ORDER BY name")
         tutors = cursor.fetchall()
-    result_dict = {'records': tutors}
+    result_dict = {'records': tutors, **request.session}
     return render(request,'app/index.html', result_dict)
 
 def view(request, student_id_mod_code):
     """Shows the view of a tutor"""
-    logger.info("Hello")
     student_id, module_code = student_id_mod_code.split('_')
+    request.session['login'] = request.session.get('login', False)
+    request.session['admin'] = request.session.get('admin', False)
     ## Use raw query to get a tutor
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM tutors WHERE student_id = %s AND module_code = %s", [student_id, module_code])
@@ -37,12 +39,15 @@ def view(request, student_id_mod_code):
         cursor.execute("SELECT module_name FROM modules WHERE module_code = %s", [module_code])
         module = cursor.fetchone()
         
-    result_dict = {'record': tutor, 'module': module} # not sure whats this gonna be like
+    result_dict = {'record': tutor, 'module': module, **request.session}
     return render(request, 'app/view.html', result_dict)
 
 # Create your views here.
 def add_tutor(request):
     """Shows the add_tutor page"""
+    request.session['admin'] = request.session.get('admin', False)
+    if not request.session['admin']:
+        return HttpResponse(reason="Not logged in", status=401)
     context = {"status": 0}
     if request.POST:
         ## Check if user already a tutor
@@ -55,8 +60,7 @@ def add_tutor(request):
                 tutor_values = [request.POST['student_id'], request.POST['name'], request.POST['module_code']
                         , request.POST['grade'], request.POST['fee'], request.POST['unit_time'], request.POST['year']]
                 cursor.execute(make_tutor_op, tutor_values)
-                context["status"] = 1
-                # return redirect('index')    
+                context["status"] = 1   
             else:
                 context["status"] = 2
     with connection.cursor() as cursor:
@@ -68,7 +72,9 @@ def add_tutor(request):
 # Create your views here.
 def add_user(request):
     """Shows the add_user page"""
-    context = {"status": 0}
+    request.session['login'] = request.session.get('login', False)
+    request.session['admin'] = request.session.get('admin', False)
+    context = {"status": 0, **request.session}
     if request.POST:
         ## Check if student_id is already in the table
         with connection.cursor() as cursor:
@@ -77,49 +83,49 @@ def add_user(request):
             if not user:
                 cursor.execute("INSERT INTO users VALUES (%s, %s, %s, %s)",
                     [request.POST['student_id'], request.POST['name'],
-                    True if request.POST['is_admin'] == 'True' else False,
+                    bool(request.POST.get('is_admin', 'False')),
                     request.POST['password']])
                 context["status"] = 1
-                # return redirect('index')    
+                if not request.session['login']:
+                    request.session['login'] = True
+                    request.session['student_id'] = request.POST['student_id']   
             else:
                 context["status"] = 2
                 status = 'User with ID %s already exists' % (request.POST['student_id']) 
     return render(request, "app/add_user.html", context)
 
 # Create your views here.
-def edit(request, id):
+def edit(request, student_id_mod_code):
     """Shows the edit page"""
-
-    # dictionary for initial data with
-    # field names as keys
-    context = {}
-
-    # fetch the object related to passed id
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
-        obj = cursor.fetchone()
-
-    status = ''
-    # save the data from the form
-
+    student_id, module_code = student_id_mod_code.split('_')
+    request.session['admin'] = request.session.get('admin', False)
+    if not request.session['admin'] and request.session['student_id'] != student_id:
+        return HttpResponse(reason="Not logged in", status=401)
+    updated = False
     if request.POST:
-        ##TODO: date validation
         with connection.cursor() as cursor:
-            cursor.execute("UPDATE customers SET first_name = %s, last_name = %s, email = %s, dob = %s, since = %s, country = %s WHERE customerid = %s"
-                    , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
-                        request.POST['dob'] , request.POST['since'], request.POST['country'], id ])
-            status = 'Customer edited successfully!'
-            cursor.execute("SELECT * FROM customers WHERE customerid = %s", [id])
-            obj = cursor.fetchone()
-
-
-    context["obj"] = obj
-    context["status"] = status
- 
-    return render(request, "app/edit.html", context)
+            cursor.execute("UPDATE tutors SET fee = %s, unit_time = %s WHERE student_id = %s AND module_code = %s",
+                           [request.POST['fee'], request.POST['unit_time'], student_id, module_code])
+        updated = True
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM tutors WHERE student_id = %s AND module_code = %s", [student_id, module_code])
+        tutor = cursor.fetchone()
+        cursor.execute("SELECT module_name FROM modules WHERE module_code = %s", [module_code])
+        module = cursor.fetchone()
+    if updated:
+        return render(request, 'app/view.html', {
+            'record': tutor, 'module': module, **request.session
+        })  
+    return render(request, "app/edit.html", {
+        'record': tutor, 'module': module, **request.session, 'updated': updated
+    })
 
 def login(request):
     """Shows the login page"""
+    request.session['login'] = request.session.get('login', False)
+    request.session['admin'] = request.session.get('admin', False)
+    if request.session['login']:
+        return redirect('index')
     context = {"status": 0}
     # Delete tutor not user
     if request.POST:
@@ -130,6 +136,10 @@ def login(request):
             if user:
                 if user[3] == password:
                     context["status"] = 1   #logged in
+                    request.session['login'] = True
+                    request.session['student_id'] = student_id
+                    if user[2]:
+                        request.session['admin'] = True
                     return redirect('index')
                 else:
                     context["status"] = 2   #wrong password                
@@ -137,20 +147,34 @@ def login(request):
                 context["status"] = 3       #user not found
     return render(request,'app/login.html', context)
 
-def index_pre_login(request):
-    """Shows the main page"""
+def logout(request):
+    request.session['login'] = False
+    request.session['admin'] = False
+    return redirect('index')
 
-    ## Delete tutor not user
+def profile(request, student_id):
+    request.session['login'] = request.session.get('login', False)
+    request.session['admin'] = request.session.get('admin', False)
     if request.POST:
         if request.POST['action'] == 'delete':
+            if not request.session['login']:
+                return HttpResponse(reason="Not logged in", status=401)
+            elif not request.session['admin'] and request.session['student_id'] != student_id:
+                return HttpResponse(reason="Not logged in", status=403)
             student_id, module_code = request.POST['student_id_mod_code'].split('_')
             with connection.cursor() as cursor:
                 cursor.execute("DELETE FROM tutors WHERE student_id = %s AND module_code =  %s", [student_id, module_code])
-
-    ## Use raw query to get all objects
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM tutors ORDER BY name")
+        cursor.execute("SELECT * FROM tutors WHERE student_id = %s", [student_id])
         tutors = cursor.fetchall()
+    result_dict = {'records': tutors, **request.session}
+    return render(request,'app/profile.html', result_dict)
 
-    result_dict = {'records': tutors}
-    return render(request,'app/index_pre_login.html', result_dict)
+def test(request):
+    request.session['visits'] = int(request.session.get('visits', 0)) + 1
+    return render(request,'app/test.html', {
+        'visits': request.session['visits']
+    })
+
+def users(request):
+    pass

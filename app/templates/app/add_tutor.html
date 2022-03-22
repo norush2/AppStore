@@ -58,18 +58,18 @@
             {% endif %}
             <br><br>
             <!-- Create a Form -->
-            <form method="POST">
+            <form method="POST" id="add_form">
                 <!-- Security token by Django -->
                 {% csrf_token %}
                 <!-- form -->
                 <div id="div_id_id" class="control-group form-floating">
-                    <input type="text" name="student_id" maxlength="64" class="textinput textInput form-control" id="id_id" placeholder="ID" value="E0309197" required>
+                    <input type="text" name="student_id" maxlength="64" class="textinput textInput form-control" id="id_id" placeholder="ID" value="E3068780" required>
                     <label for="id_id" class="control-label requiredField form-label">
                         NUSNET ID<span class="asteriskField">*</span> 
                     </label>     
                 </div>                        
                 <div id="div_id_name" class="control-group form-floating">
-                    <input type="text" name="name" maxlength="64" class="textinput textInput form-control" id="id_name" placeholder="Name" value="Anas" required>
+                    <input type="text" name="name" maxlength="64" class="textinput textInput form-control" id="id_name" placeholder="Name" value="AAAA" required>
                     <label for="id_name" class="control-label requiredField form-label">
                         Name<span class="asteriskField">*</span> 
                     </label>     

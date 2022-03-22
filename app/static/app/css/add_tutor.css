@@ -8,11 +8,16 @@ body {
 select {
     margin-bottom: 3px;
 }
+.container {
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   max-width: 100% !important;
+}
 .container form {
     max-width: 400px !important;
     margin: 0 auto;
 }
-
 .toast {
     margin: 0 auto;
 }

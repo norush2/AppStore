@@ -10,6 +10,12 @@ select {
 label.w {
     color: white;
 }
+.container {
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   max-width: 100% !important;
+}
 .container form {
     max-width: 400px !important;
     margin: 0 auto;
