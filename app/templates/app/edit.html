@@ -25,8 +25,8 @@
                             Add
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="add_tutor">Add tutor</a></li>
-                                <li><a class="dropdown-item" href="add_user">Add user</a></li>
+                                <li><a class="dropdown-item" href="{% url 'add_tutor' %}">Add tutor</a></li>
+                                <li><a class="dropdown-item" href="{% url 'add_user' %}">Add user</a></li>
                             </ul>
                         </li>
                         <a class="nav-link active" aria-current="page" href="#">Edit</a>
@@ -38,10 +38,7 @@
                     </form>
                 </div>
             </div>
-        </nav>        
-        <!-- <h2 class="text-white">Edit {{obj.5}}</h2> -->
-        <!-- <a href="/">Back to home</a> -->
-
+        </nav>
         <p class="text-danger">{{ status|safe }}</p>
         <div class="container">
             <div class="row">

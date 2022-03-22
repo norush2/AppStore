@@ -26,8 +26,8 @@
                             Add
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="add_tutor">Add tutor</a></li>
-                                <li><a class="dropdown-item" href="add_user">Add user</a></li>
+                                <li><a class="dropdown-item" href="{% url 'add_tutor' %}">Add tutor</a></li>
+                                <li><a class="dropdown-item" href="{% url 'add_user' %}">Add user</a></li>
                             </ul>
                         </li>
                         <!-- <a class="nav-link" href="#">Login <i class="bi bi-box-arrow-in-right"></i></a> -->
@@ -41,8 +41,6 @@
                 </div>
             </div>
         </nav>
-        <!-- <h2 class="text-white">Customers in the App Store</h2> -->
-        <!-- <a href="add">New customer</a> -->
         <br><br>
         <div class="container">
             <div class="row">
